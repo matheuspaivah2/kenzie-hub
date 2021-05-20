@@ -5,7 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router";
 
-const LoginForm = () => {
+import axios from "axios";
+
+const FormLogin = ({setIsValidated}) => {
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -15,7 +17,7 @@ const LoginForm = () => {
       .min(8, "Mínimo de 8 dígitos")
       .matches(
         /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Senha inválida"
+        "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!"
       )
       .required("Campo obrigatório"),
   });
@@ -29,11 +31,16 @@ const LoginForm = () => {
     resolver: yupResolver(schema),
   });
 
-  //Vamos continuar aqui
   const handleForm = (data) => {
     console.log(data);
-    reset();
-    history.push("/");
+    axios.post("https://kenziehub.me/sessions", data).then((response) => {
+      console.log(response);
+      localStorage.clear();
+      localStorage.setItem("token", JSON.stringify(response.data.token));
+      setIsValidated(true);
+      reset();
+      history.push("/home");
+    });
   };
 
   return (
@@ -51,12 +58,12 @@ const LoginForm = () => {
           helperText={errors.email?.message}
         />
       </div>
-   
       <div>
         <TextField
           margin="normal"
           variant="outlined"
-          label="Senha"
+          label="Password"
+          name="password"
           size="small"
           color="primary"
           {...register("password")}
@@ -64,8 +71,6 @@ const LoginForm = () => {
           helperText={errors.password?.message}
         />
       </div>
-    
-
       <div>
         <Button type="submit" variant="contained" color="primary">
           Enviar
@@ -75,5 +80,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
-
+export default FormLogin;

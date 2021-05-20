@@ -5,6 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router";
 
+import axios from "axios";
+
 const Register = () => {
   const history = useHistory();
 
@@ -36,8 +38,13 @@ const Register = () => {
   //Vamos continuar aqui
   const handleForm = (data) => {
     console.log(data);
-    reset();
-    history.push("/");
+    axios
+      .post("https://kenziehub.me/users", data)
+      .then((response) => {
+        reset();
+        history.push("/");
+      })
+      .catch((e) => console.log(e));
   };
 
   return (

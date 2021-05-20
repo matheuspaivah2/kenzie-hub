@@ -1,8 +1,8 @@
 import LoginForm from '../../components/Login'
 
-const Login = () => {
+const Login = ({setIsValidated}) => {
     return(
-        <LoginForm></LoginForm>
+        <LoginForm setIsValidated={setIsValidated}></LoginForm>
     )
 }
 
