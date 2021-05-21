@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import RegisterTech from '../../components/RegisterTech'
 import Technologies from '../../components/Technologies'
 import axios from 'axios'
+import './styles.css'
 import { Redirect } from 'react-router';
 
 const Home = () => {
@@ -34,13 +35,13 @@ const Home = () => {
 
     return(
         <div>
-            <h3>{user.name}</h3>
+            <h1>{user.name}</h1>
             {
-                user && <RegisterTech token={token} loadProfile={loadProfile}/>
+                user && <RegisterTech  token={token} loadProfile={loadProfile}/>
                  
             }
             {
-                user.techs && <Technologies token={token} user={user.techs} loadProfile={loadProfile}/>
+                user.techs && <Technologies token={token} user={user.techs} loadProfile={loadProfile}/> 
             }
 
         </div>

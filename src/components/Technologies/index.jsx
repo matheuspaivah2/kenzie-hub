@@ -1,13 +1,14 @@
-import { Container } from './styles'
+import { Container, Empty } from './styles'
 import Card from '../Card'
 
 
 const Technologies = ({user, token, loadProfile}) =>{
 
+    console.log(user)
     return(
         <>
             {
-                user && 
+                user[0]  ?
                 <Container>
                     <ul>
                         {
@@ -15,7 +16,9 @@ const Technologies = ({user, token, loadProfile}) =>{
                             <Card loadProfile={loadProfile} techId={item.id} key={item.id} token={token} title={item.title} status={item.status}></Card>)
                         }
                     </ul>
-                </Container>
+                </Container> 
+                :
+                <Empty >Nenhuma tecnologia cadastrada</Empty>
                 
             }
            

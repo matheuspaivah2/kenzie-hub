@@ -1,10 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
-
+import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
+import './styles.css'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router";
-
+import { toast } from 'react-toastify'
 import axios from "axios";
 
 const Register = () => {
@@ -35,28 +36,61 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  //Vamos continuar aqui
+  
   const handleForm = (data) => {
     console.log(data);
     axios
       .post("https://kenziehub.me/users", data)
       .then((response) => {
+        toast.success('Sucesso ao criar a conta!')
         reset();
         history.push("/");
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        toast.error('Erro ao criar a conta!')
+      })
   };
 
+  const useStyles = makeStyles((theme) => ({
+    inp: {
+      backgroundColor: 'white',
+      borderRadius: '4px',
+      width: '200px',
+      borderColor: 'white',
+      border: '1px solid',
+      
+     
+    },
+    textField__label:{
+      color: '#1b2766 !important' ,
+      
+      fontWeight: 'bolder',
+    },
+    bt: {
+      backgroundColor: '#1b2766',
+      fontWeight: 'bolder',
+      marginTop: '25px',
+    }
+  }))
+ 
+ 
+  const classes = useStyles()
+
   return (
-    <form onSubmit={handleSubmit(handleForm)}>
+    
+    <form className='formSingup' onSubmit={handleSubmit(handleForm)}>
+      <h2>Cadastro</h2>
       <div>
         <TextField
+          className={classes.inp}
           required
           margin="normal"
           variant="outlined"
           label="Email"
           size="small"
           color="primary"
+          InputLabelProps={{className: classes.textField__label}}
           {...register("email")}
           error={!!errors.email}
           helperText={errors.email?.message}
@@ -64,12 +98,14 @@ const Register = () => {
       </div>
       <div>
         <TextField
+          className={classes.inp}
           margin="normal"
           variant="outlined"
           label="Nome"
           name="name"
           size="small"
           color="primary"
+          InputLabelProps={{className: classes.textField__label}}
           {...register("name")}
           error={!!errors.name}
           helperText={errors.name?.message}
@@ -77,11 +113,13 @@ const Register = () => {
       </div>
       <div>
         <TextField
+          className={classes.inp}
           margin="normal"
           variant="outlined"
           label="Senha"
           size="small"
           color="primary"
+          InputLabelProps={{className: classes.textField__label}}
           {...register("password")}
           error={!!errors.password}
           helperText={errors.password?.message}
@@ -89,11 +127,13 @@ const Register = () => {
       </div>
       <div>
         <TextField
+          className={classes.inp}
           margin="normal"
           variant="outlined"
           label="Bio"
           size="small"
           color="primary"
+          InputLabelProps={{className: classes.textField__label}}
           {...register("bio")}
           error={!!errors.bio}
           helperText={errors.bio?.message}
@@ -101,11 +141,13 @@ const Register = () => {
       </div>
       <div>
         <TextField
+         className={classes.inp}
           margin="normal"
           variant="outlined"
           label="Contato"
           size="small"
           color="primary"
+          InputLabelProps={{className: classes.textField__label}}
           {...register("contact")}
           error={!!errors.contact}
           helperText={errors.contact?.message}
@@ -113,11 +155,13 @@ const Register = () => {
       </div>
       <div>
         <TextField
+          className={classes.inp}
           margin="normal"
           variant="outlined"
           label="Módulo do curso"
           size="small"
           color="primary"
+          InputLabelProps={{className: classes.textField__label}}
           {...register("course_module")}
           error={!!errors.course_module}
           helperText={errors.course_module?.message}
@@ -125,7 +169,7 @@ const Register = () => {
       </div>
 
       <div>
-        <Button type="submit" variant="contained" color="primary">
+        <Button className={classes.bt} type="submit" variant="contained" color="primary">
           Enviar
         </Button>
       </div>

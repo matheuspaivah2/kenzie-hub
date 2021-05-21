@@ -1,0 +1,17 @@
+.formLogin{
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 100px;
+    background-color: white;
+    padding: 8px;
+    height: 280px;
+    border-radius: 4px;
+}
+
+h2{
+    color: #1b2766;
+}

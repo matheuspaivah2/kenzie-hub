@@ -1,10 +1,13 @@
-import { Button, TextField } from "@material-ui/core";
-
+import { Button, TextField, MenuItem } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import './styles.css'
 import * as yup from "yup";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Children, useState } from "react";
+import { toast } from 'react-toastify'
+
 
 const RegisterTech = ({loadProfile}) => {
 
@@ -25,6 +28,21 @@ const RegisterTech = ({loadProfile}) => {
     resolver: yupResolver(schema),
   });
 
+  const currencies = [
+    {
+      value: 'Iniciante',
+      label: 'Iniciante',
+    },
+    {
+      value: 'Intermediário',
+      label: 'Intermediário',
+    },
+    {
+      value: 'Avançado',
+      label: 'Avançado',
+    },
+    
+  ];
   
   const handleForm = (data) => {
     console.log(data);
@@ -40,49 +58,100 @@ const RegisterTech = ({loadProfile}) => {
       .then((response) => {
 
         loadProfile()
-    
+        toast.success('Tecnologia cadastrada!')
         reset();
       
       })
-      .catch((e) => console.log(`err:${e}`));
+      .catch((e) => {
+        console.log(`err:${e}`)
+        toast.error('Falha ao cadastrar tecnologia!')
+      });
   };
 
+  const [currency, setCurrency] = useState('Iniciante');
 
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
+    console.log(currency)
+  };
+
+  const useStyles = makeStyles((theme) => ({
+    inp: {
+      backgroundColor: 'white',
+      borderRadius: '4px',
+      width: '200px',
+      borderColor: 'white',
+      border: '1px solid',
+      
+     
+    },
+    textField__label:{
+      color: '#1b2766 !important' ,
+      
+      fontWeight: 'bolder',
+    },
+    bt: {
+      backgroundColor: '#1b2766',
+      fontWeight: 'bolder',
+      
+    }
+  }))
  
+ 
+  const classes = useStyles()
 
   return (
-    <form onSubmit={handleSubmit(handleForm)}>
-      <h3>Cadrastro de Novas Tecnologias</h3>
+    <form className='form-techs' onSubmit={handleSubmit(handleForm)}>
+      <h3 className='title'>Nova Tecnologia</h3>
       <div>
         <TextField
+          className={classes.inp}
           required
           margin="normal"
           variant="outlined"
           label="Title"
           size="small"
           color="primary"
+          
+          InputLabelProps={{className: classes.textField__label}}
           {...register("title")}
           error={!!errors.title}
           helperText={errors.title?.message}
-        />
+        >
+          
+        </TextField>
       </div>
       <div>
         <TextField
+          className={classes.inp}
+          InputLabelProps={{className: classes.textField__label}}
           margin="normal"
           variant="outlined"
           label="Status"
           name="status"
+          select
           size="small"
           color="primary"
+          
+          
           {...register("status")}
           error={!!errors.title}
+          id="standard-select-currency"
           helperText={errors.title?.message}
-        />
+          
+        >
+          {currencies.map((option, index) => (
+            <MenuItem key={index} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
+     
      
 
       <div>
-        <Button type="submit" variant="contained" color="primary">
+        <Button className={classes.bt} type="submit" variant="contained" color="primary">
           Cadastrar
         </Button>
       </div>

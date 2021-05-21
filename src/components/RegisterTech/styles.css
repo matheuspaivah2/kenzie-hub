@@ -1,0 +1,23 @@
+.form-techs{
+    background: white;
+ 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 4px;
+    margin: 0 auto;
+}
+
+.title{
+    color: #1b2766;
+    margin: 0 auto;
+}
+
+.itemSelect{
+    color: white;
+}

@@ -1,17 +1,21 @@
-import { useState } from "react";
+
 import { Switch, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Singup from "../pages/Singup";
+import NotFound from '../pages/NotFound'
 
-const Routes = () => {
+const Routes = ({isValidated, setIsValidated}) => {
 
-  const [isValidated, setIsValidated] = useState(false);
+  
   
   return (
     <Switch>
       <Route exact path="/">
+        <Login setIsValidated={setIsValidated} />
+      </Route>
+      <Route path="/login">
         <Login setIsValidated={setIsValidated} />
       </Route>
       <Route path="/register">
@@ -25,6 +29,9 @@ const Routes = () => {
             <Login setIsValidated={setIsValidated} />   
         }
         
+      </Route>
+      <Route>
+        <NotFound/>
       </Route>
     </Switch>
   );
