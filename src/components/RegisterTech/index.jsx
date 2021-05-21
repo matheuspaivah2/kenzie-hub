@@ -3,14 +3,12 @@ import { Button, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useHistory } from "react-router";
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const RegisterTech = () => {
+const RegisterTech = ({loadProfile}) => {
 
-  const history = useHistory();
+ 
   
   const [token, setToken] = useState(() => {
     const localToken = localStorage.getItem("token") || "";
@@ -27,13 +25,12 @@ const RegisterTech = () => {
     resolver: yupResolver(schema),
   });
 
-  //Vamos continuar aqui
+  
   const handleForm = (data) => {
     console.log(data);
     axios
-      
       .post("https://kenziehub.me/users/techs",  
-      data,
+        data,
         {
         headers: { 
           Authorization: `Bearer ${token}` 
@@ -41,20 +38,17 @@ const RegisterTech = () => {
         
       })
       .then((response) => {
+
+        loadProfile()
+    
         reset();
-        // history.push("/");
+      
       })
       .catch((e) => console.log(`err:${e}`));
   };
 
-//   useEffect(() => {
-//     axios
-//     .get("https://kenziehub.me/profile", {
-//         headers: { Authorization: `Bearer ${token}` },
-//     })
-//     .then((response) => console.log(response.data))
-//     .catch((e) => console.log(e));
-// }, []);
+
+ 
 
   return (
     <form onSubmit={handleSubmit(handleForm)}>
