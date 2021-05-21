@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import './styles.css'
 import * as yup from "yup";
 import axios from "axios";
-import { Children, useState } from "react";
+import { useState } from "react";
 import { toast } from 'react-toastify'
 
 
@@ -45,7 +45,7 @@ const RegisterTech = ({loadProfile}) => {
   ];
   
   const handleForm = (data) => {
-    console.log(data);
+    
     axios
       .post("https://kenziehub.me/users/techs",  
         data,
@@ -68,12 +68,12 @@ const RegisterTech = ({loadProfile}) => {
       });
   };
 
-  const [currency, setCurrency] = useState('Iniciante');
+  // const [currency, setCurrency] = useState('Iniciante');
 
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
-    console.log(currency)
-  };
+  // const handleChange = (event) => {
+  //   setCurrency(event.target.value);
+  //   console.log(currency)
+  // };
 
   const useStyles = makeStyles((theme) => ({
     inp: {
@@ -141,7 +141,7 @@ const RegisterTech = ({loadProfile}) => {
           
         >
           {currencies.map((option, index) => (
-            <MenuItem key={index} value={option.value}>
+            <MenuItem key={index} value={option.value} >
               {option.label}
             </MenuItem>
           ))}

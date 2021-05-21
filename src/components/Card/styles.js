@@ -9,7 +9,7 @@ export const Container = styled.div`
     justify-content:  space-between;
     flex-direction: column;
     border: 1px solid white;
-    background-color: #330525;
+    background-color: #062f49;
     align-items: center;
     h2, h3{
         text-transform: uppercase;

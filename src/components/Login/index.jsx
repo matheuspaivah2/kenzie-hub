@@ -33,10 +33,10 @@ const FormLogin = ({setIsValidated}) => {
   });
 
   const handleForm = (data) => {
-    console.log(data);
+    
     axios.post("https://kenziehub.me/sessions", data)
     .then((response) => {
-      console.log(response);
+      
       localStorage.clear();
       localStorage.setItem("token", JSON.stringify(response.data.token));
       setIsValidated(true);
@@ -92,6 +92,7 @@ const FormLogin = ({setIsValidated}) => {
       
         <TextField
           className={classes.inp}
+          type='password'
           margin="normal"
           variant="outlined"
           label="Password"

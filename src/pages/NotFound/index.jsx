@@ -1,7 +1,7 @@
 
 const NotFound = () =>{
     return(
-        <div>NOT FOUND</div>
+        <div style={{color: 'white', marginTop: '100px', fontSize: '30px'}}>NOT FOUND</div>
     )
 }
 export default NotFound;

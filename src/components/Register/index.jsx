@@ -13,9 +13,9 @@ const Register = () => {
 
   const schema = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    name: yup.string().required("Campo obrigatório"),
-    bio: yup.string().required("Campo obrigatório"),
-    course_module: yup.string().required("Campo obrigatório"),
+    name: yup.string().min(2,'Mínimo 2 caracteres').required("Campo obrigatório"),
+    bio: yup.string().min(6,'Mínimo seis caracters').required("Campo obrigatório"),
+    course_module: yup.string().min(2,'Mínimo dois caracteres').required("Campo obrigatório"),
     contact: yup.string().required("Campo obrigatório"),
     password: yup
       .string()
@@ -38,7 +38,7 @@ const Register = () => {
 
   
   const handleForm = (data) => {
-    console.log(data);
+    
     axios
       .post("https://kenziehub.me/users", data)
       .then((response) => {
@@ -47,7 +47,7 @@ const Register = () => {
         history.push("/");
       })
       .catch((e) => {
-        console.log(e);
+        
         toast.error('Erro ao criar a conta!')
       })
   };

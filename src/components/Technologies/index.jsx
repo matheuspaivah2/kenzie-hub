@@ -4,7 +4,7 @@ import Card from '../Card'
 
 const Technologies = ({user, token, loadProfile}) =>{
 
-    console.log(user)
+    
     return(
         <>
             {

@@ -1,10 +1,11 @@
 import { Container } from './styles'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 const Card = ({title, status, techId, token, loadProfile}) =>{
 
-    console.log(techId)
+   
 
     const handleDelete = () =>{
         axios
@@ -17,9 +18,12 @@ const Card = ({title, status, techId, token, loadProfile}) =>{
         }
         )
         .then((response) => {
+            toast.success('Tecnologia excluida com sucesso!')
             loadProfile()
         })
-        .catch((e) => console.log(`err:${e}`));
+        .catch((e) => {
+            toast.error('Falha')
+        });
     }
     return(
         <Container>
