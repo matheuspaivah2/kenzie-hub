@@ -19,7 +19,7 @@ const RegisterTech = ({loadProfile}) => {
 });
 
   const schema = yup.object().shape({
-    title: yup.string().required("Campo obrigatório"),
+    title: yup.string().min(2, 'Mínimo 2 caracteres').required("Campo obrigatório"),
     status: yup.string().required("Campo obrigatório"),
     
   });
@@ -100,6 +100,8 @@ const RegisterTech = ({loadProfile}) => {
  
   const classes = useStyles()
 
+  const [selectItem, setSelectItem] = useState('Defina um status')
+
   return (
     <form className='form-techs' onSubmit={handleSubmit(handleForm)}>
       <h3 className='title'>Nova Tecnologia</h3>
@@ -132,16 +134,17 @@ const RegisterTech = ({loadProfile}) => {
           select
           size="small"
           color="primary"
-          
-          
+          value={selectItem}
+         
           {...register("status")}
           error={!!errors.title}
           id="standard-select-currency"
           helperText={errors.title?.message}
-          
+         
         >
+          
           {currencies.map((option, index) => (
-            <MenuItem key={index} value={option.value} >
+            <MenuItem key={index} value={option.value} onClick={(e) => setSelectItem(option.value)}>
               {option.label}
             </MenuItem>
           ))}

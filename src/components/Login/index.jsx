@@ -44,7 +44,7 @@ const FormLogin = ({setIsValidated}) => {
       toast.success('Bem vindo!')
       history.push("/home");
     })
-    .catch((res) => toast.error('Email ou senha inválidos'))
+    .catch((res) => toast.error('Falha ao conectar'))
   };
 
   const useStyles = makeStyles((theme) => ({
